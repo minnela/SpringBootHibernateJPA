@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,  initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+
+    <title>Issues</title>
+</head>
+<body background="https://wallpapercave.com/wp/wp5837706.png">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/home">Minnela</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/patients">Patients <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Add Patient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/issues">Covid Rate</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<table>
+    <tr>
+        <th></th>
+        <th>Patient name</th>
+        <th>Patient surname</th>
+        <th>Patient age</th>
+        <th>Patient covid info</th>
+        <th></th>
+    </tr>
+    <tr th:each="patient : ${patients}">
+        <td th:text="${patient.name}">Patient name</td>
+        <td th:text="${patient.surname}">Patient surname</td>
+        <td th:text="${patient.age}">Patient age</td>
+        <td th:text="${patient.covidInfo}">Patient covid information</td>
+        <td>
+            <form action="#" th:action="@{'/updateCovidInfo/'+${patient.id}}" th:method="post" >
+                <input type="hidden" name="_method" value="post" />
+                <button type="submit" id="Approve" name="Approve">Update Covid Info </button>
+            </form>
+        </td>
+
+        <td>
+            <form action="#" th:action="@{'/deletePatient/'+${patient.id}}" th:method="post" >
+                <button type="submit" >Delete Patient </button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
